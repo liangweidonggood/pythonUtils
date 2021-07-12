@@ -6,12 +6,12 @@ qr = qrcode.QRCode(
     box_size=20,  # 每一个点中的像素个数
     border=1,  # 二维码距图像外围边框距离，默认为4
 )
-qr.add_data("http://sunsgallery.cn/#/detail?id=330")
+qr.add_data("http://sunsgallery.cn/detail?id=333")
 qr.make(fit=True)
 
 img = qr.make_image(fill_color="black", back_color="white")  # QR的背景和绘画颜色
 # 生成二维码
 # img = qrcode.make(data="http://sunsgallery.cn/#/detail?id=330")
 # 将二维码保存为图片
-with open("test1.png", "wb") as f:
+with open("2021071601.png", "wb") as f:
     img.save(f)
