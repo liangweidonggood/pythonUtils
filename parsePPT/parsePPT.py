@@ -6,7 +6,7 @@ from pptx.shapes.picture import Picture
 
 path = os.path.abspath(os.path.dirname(sys.argv[0]))
 
-ppt = Presentation(path + "\\" + "202107.pptx")
+ppt = Presentation(path + "\\" + "202110.pptx")
 
 index = 1
 
@@ -17,7 +17,8 @@ years = ""
 culture = ""
 origin = ""
 remark = ""
-urlPrefix = "https://sunsah.oss-cn-beijing.aliyuncs.com/202107/"
+# urlPrefix = "https://sunsah.oss-cn-beijing.aliyuncs.com/202110/"
+urlPrefix = "http://sunsgallery.cn:8080/images/202110/"
 url = ""
 sql = """
 INSERT INTO `ah`.`t_gem` ( `code`, `name`, `specs`, `years`, `culture`, `origin`, `remark`, `url` )
