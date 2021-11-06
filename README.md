@@ -14,3 +14,11 @@ pip install qrcode
 python.exe -m pip install qrcode -i http://pypi.douban.com/simple --trusted-host pypi.douban.com
 
 ```
+# 把json转为excel
+```
+python.exe -m pip install xlrd -i http://pypi.douban.com/simple --trusted-host pypi.douban.com
+python.exe -m pip install openpyxl -i http://pypi.douban.com/simple --trusted-host pypi.douban.com
+
+
+python.exe -m pip install tablib[all] -i http://pypi.douban.com/simple --trusted-host pypi.douban.com
+```
