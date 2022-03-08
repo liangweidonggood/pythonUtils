@@ -1,6 +1,16 @@
+import os
+
 import qrcode
 
-for x in range(0, 29):
+pptName = "202203"
+dirPath = "./code/" + pptName
+isExists = os.path.exists(dirPath)
+if not isExists:
+    os.makedirs(dirPath)
+else:
+    print('已经存在目录')
+
+for x in range(0, 37):
     qr = qrcode.QRCode(
         version=3,  # 二维码大小，用1~40之间的整数来设置。最小的version=1，是一个21x21的矩阵。
         error_correction=qrcode.constants.ERROR_CORRECT_L,  # 二维码的纠错范围
@@ -8,12 +18,12 @@ for x in range(0, 29):
         border=1,  # 二维码距图像外围边框距离，默认为4
     )
     # print(x)
-    a = 392
-    b = 2021101601
+    a = 421  # 数据库id起始数
+    b = 2022031101  # ppt中起始数字
     a += x
     b += x
-    url = "http://sunsgallery.cn/detail?id="+str(a)
-    fileName = str(b)+".png"
+    url = "http://sunsgallery.cn/detail?id=" + str(a)
+    fileName = str(b) + ".png"
     print(url)
     print(fileName)
     qr.add_data(url)
@@ -23,5 +33,5 @@ for x in range(0, 29):
     # img = qrcode.make(data="http://sunsgallery.cn/#/detail?id=330")
     # 将二维码保存为图片
     # with open("2021071601.png", "wb") as f:
-    with open(f'code/{fileName}', 'wb') as f:
+    with open(f'code/{pptName}/{fileName}', 'wb') as f:
         img.save(f)

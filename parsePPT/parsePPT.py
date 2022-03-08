@@ -6,7 +6,14 @@ from pptx.shapes.picture import Picture
 
 path = os.path.abspath(os.path.dirname(sys.argv[0]))
 
-ppt = Presentation(path + "\\" + "202110.pptx")
+fileName = "202203"
+dirPath = "./images/" + fileName
+isExists = os.path.exists(dirPath)
+if not isExists:
+    os.makedirs(dirPath)
+else:
+    print('已经存在目录')
+ppt = Presentation(path + "\\" + fileName + ".pptx")
 
 index = 1
 
@@ -18,7 +25,7 @@ culture = ""
 origin = ""
 remark = ""
 # urlPrefix = "https://sunsah.oss-cn-beijing.aliyuncs.com/202110/"
-urlPrefix = "http://sunsgallery.cn:8080/images/202110/"
+urlPrefix = "http://sunsgallery.cn:8080/images/" + fileName + "/"
 url = ""
 sql = """
 INSERT INTO `ah`.`t_gem` ( `code`, `name`, `specs`, `years`, `culture`, `origin`, `remark`, `url` )
@@ -67,13 +74,13 @@ for slide in ppt.slides:  # > .slides 得到一个列表，包含每个列表sli
             index += 1
         elif isinstance(shape, Picture):  # 有图片
             # shape.image.blob:二进制图像字节流,写入图像文件
-            with open(f'images/{code}.jpg', 'wb') as f:
+            with open(f'images/{fileName}/{code}.jpg', 'wb') as f:
                 f.write(shape.image.blob)
-    url = urlPrefix+code+".jpg"
+    url = urlPrefix + code + ".jpg"
     i += 1
     if count == i:
-        values = "('" + code + "','" + name + "','" + specs + "','" + years + "','" + culture + "','" + origin + "','" +remark + "','"+url+"');"
+        values = "('" + code + "','" + name + "','" + specs + "','" + years + "','" + culture + "','" + origin + "','" + remark + "','" + url + "');"
     else:
-        values = "('" + code + "','" + name + "','" + specs + "','" + years + "','" + culture + "','" + origin + "','" +remark + "','"+url+"'),"
+        values = "('" + code + "','" + name + "','" + specs + "','" + years + "','" + culture + "','" + origin + "','" + remark + "','" + url + "'),"
     sql += values
 print(sql)
