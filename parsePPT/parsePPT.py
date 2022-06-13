@@ -6,13 +6,13 @@ from pptx.shapes.picture import Picture
 
 path = os.path.abspath(os.path.dirname(sys.argv[0]))
 
-fileName = "202203"
+fileName = "20220613"
 dirPath = "./images/" + fileName
 isExists = os.path.exists(dirPath)
 if not isExists:
     os.makedirs(dirPath)
 else:
-    print('已经存在目录')
+    print("已经存在目录")
 ppt = Presentation(path + "\\" + fileName + ".pptx")
 
 index = 1
@@ -25,7 +25,7 @@ culture = ""
 origin = ""
 remark = ""
 # urlPrefix = "https://sunsah.oss-cn-beijing.aliyuncs.com/202110/"
-urlPrefix = "http://sunsgallery.cn:8080/images/" + fileName + "/"
+urlPrefix = "https://api.sunsgallery.cn:8443/images/" + fileName + "/"
 url = ""
 sql = """
 INSERT INTO `ah`.`t_gem` ( `code`, `name`, `specs`, `years`, `culture`, `origin`, `remark`, `url` )
@@ -50,37 +50,73 @@ for slide in ppt.slides:  # > .slides 得到一个列表，包含每个列表sli
                 # print(paragraph.text[3:])
                 s = paragraph.text
                 if "编号：" in s:
-                    code = s[len("编号："):].strip()
+                    code = s[len("编号：") :].strip()
                     # print(code)
                 elif "名称：" in s:
-                    name = s[len("名称："):].strip()
+                    name = s[len("名称：") :].strip()
                     # print(name)
                 elif "规格：" in s:
-                    specs = s[len("规格："):].strip()
+                    specs = s[len("规格：") :].strip()
                     # print(specs)
                 elif "年代：" in s:
-                    years = s[len("年代："):].strip()
+                    years = s[len("年代：") :].strip()
                     # print(years)
                 elif "文化：" in s:
-                    culture = s[len("文化："):].strip()
+                    culture = s[len("文化：") :].strip()
                     # print(culture)
                 elif "分布出处：" in s:
-                    origin = s[len("分布出处："):].strip()
+                    origin = s[len("分布出处：") :].strip()
                     # print(origin)
                 elif "备注：" in s:
-                    remark = s[len("备注："):].strip()
+                    remark = s[len("备注：") :].strip()
                     # print(remark)
             # print(index)
             index += 1
         elif isinstance(shape, Picture):  # 有图片
             # shape.image.blob:二进制图像字节流,写入图像文件
-            with open(f'images/{fileName}/{code}.jpg', 'wb') as f:
+            with open(f"images/{fileName}/{code}.jpg", "wb") as f:
                 f.write(shape.image.blob)
     url = urlPrefix + code + ".jpg"
     i += 1
     if count == i:
-        values = "('" + code + "','" + name + "','" + specs + "','" + years + "','" + culture + "','" + origin + "','" + remark + "','" + url + "');"
+        values = (
+            "('"
+            + code
+            + "','"
+            + name
+            + "','"
+            + specs
+            + "','"
+            + years
+            + "','"
+            + culture
+            + "','"
+            + origin
+            + "','"
+            + remark
+            + "','"
+            + url
+            + "');"
+        )
     else:
-        values = "('" + code + "','" + name + "','" + specs + "','" + years + "','" + culture + "','" + origin + "','" + remark + "','" + url + "'),"
+        values = (
+            "('"
+            + code
+            + "','"
+            + name
+            + "','"
+            + specs
+            + "','"
+            + years
+            + "','"
+            + culture
+            + "','"
+            + origin
+            + "','"
+            + remark
+            + "','"
+            + url
+            + "'),"
+        )
     sql += values
 print(sql)
